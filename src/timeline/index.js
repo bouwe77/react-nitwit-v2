@@ -1,18 +1,18 @@
 import React from "react";
 
-import Timeline from "./Timeline";
+import Posts from "../-- shared/Posts";
 import Compose from "./Compose";
 import useTimeline from "./useTimeline";
 
-function TimelineContainer() {
+function TimelinePage() {
   const [timeline, addPost] = useTimeline();
 
   return (
     <>
       <Compose addPost={addPost} />
-      <Timeline posts={timeline} />
+      <Posts posts={timeline} />
     </>
   );
 }
 
-export default TimelineContainer;
+export default TimelinePage;
