@@ -2,10 +2,13 @@ import React from "react";
 
 import Post from "./Post";
 
-function Timeline(props) {
+/**
+ * Renders the given posts array.
+ */
+function Timeline({ posts }) {
   return (
     <>
-      {props.posts.map((post, index) => (
+      {posts.map((post, index) => (
         <Post post={post} key={index} />
       ))}
     </>

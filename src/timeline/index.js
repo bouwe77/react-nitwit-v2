@@ -1,6 +1,6 @@
 import React from "react";
 
-import Posts from "../-- shared/Posts";
+import Posts from "../posts/Posts";
 import Compose from "./Compose";
 import useTimeline from "./useTimeline";
 

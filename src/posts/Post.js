@@ -3,6 +3,9 @@ import React from "react";
 import styles from "./Post.module.css";
 import timeSince from "./timeSince";
 
+/**
+ * Renders the given post object.
+ */
 function Post({ post }) {
   return (
     <>
