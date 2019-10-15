@@ -1,8 +1,9 @@
 import React from "react";
 
 import styles from "./Header.module.css";
+import { Link } from "react-router-dom";
 
-function Header({ showTimeline, showFollowing }) {
+function Header() {
   return (
     <div className={styles.header}>
       <div>
@@ -17,14 +18,10 @@ function Header({ showTimeline, showFollowing }) {
       <div>
         <ul>
           <li>
-            <a href="#" onClick={() => showTimeline()}>
-              timeline
-            </a>
+            <Link to="/">timeline</Link>
           </li>
           <li>
-            <a href="#" onClick={() => showFollowing()}>
-              following
-            </a>
+            <Link to="/following">following</Link>
           </li>
         </ul>
       </div>
