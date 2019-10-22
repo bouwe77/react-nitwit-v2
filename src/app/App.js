@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Header from "./Header";
 import Container from "./Container";
-import TimelinePage from "../timeline";
-import FollowingPage from "../following";
+import TimelinePage from "../TimelinePage";
+import FollowingPage from "../FollowingPage";
 
 function App() {
   return (
