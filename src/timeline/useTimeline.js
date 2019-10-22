@@ -2,38 +2,26 @@ import { useState } from "react";
 import axios from "axios";
 import settings from "../settings";
 import useInterval from "@use-it/interval";
+import { getWithEtag } from "../api/get";
 
 export default () => {
-  const defaultDelay = 5000;
+  const defaultDelay = 10000;
   const [delay, setDelay] = useState(0);
   const [timeline, setTimeline] = useState([]);
   const [etag, setEtag] = useState(null);
 
   // Retrieve the timeline every x seconds
-  useInterval(() => {
+  useInterval(async () => {
     // The initial delay is zero so the first API call is done right away.
-    // After that, all subsequent calls must be done acoording to the defaultDelay.
+    // After that, all subsequent calls must be done according to the defaultDelay.
     if (delay !== defaultDelay) setDelay(defaultDelay);
 
     // Call the API to get the timeline.
-    axios
-      .get(settings.timelineUrl, {
-        headers: { "If-None-Match": etag },
-        validateStatus: function(status) {
-          return status < 400; // This means all status codes below 400 are valid
-        }
-      })
-      .then(res => {
-        if (etag !== res.headers.etag) {
-          setEtag(res.headers.etag);
-        }
-        if (res.status === 200) {
-          setTimeline(res.data);
-        }
-      })
-      .catch(error => {
-        console.log(error, error.request, error.response, error.config);
-      });
+    const result = await getWithEtag(settings.timelineUrl, etag);
+    if (result.isNew) {
+      setTimeline(result.data);
+      setEtag(result.etag);
+    }
   }, delay);
 
   const addPost = content => {
