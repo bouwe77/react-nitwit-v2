@@ -2,16 +2,15 @@ import React from "react";
 
 import Posts from "./posts/Posts";
 import Compose from "./compose/Compose";
-import useTimeline from "./timeline/useTimeline";
-import settings from "../settings";
+import usePosts from "./timeline/usePosts";
 
 function TimelinePage() {
-  const [timeline, addPost] = useTimeline(settings.username);
+  const [posts, addPost] = usePosts();
 
   return (
     <>
       <Compose addPost={addPost} />
-      <Posts posts={timeline} />
+      <Posts posts={posts} />
     </>
   );
 }
