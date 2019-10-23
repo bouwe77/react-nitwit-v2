@@ -1,8 +1,10 @@
 import React from "react";
-import axios from "axios";
 
 import settings from "../../settings";
 import UserList from "./UserList";
+import { getFollowing } from "../../api/getFollowing";
+import { saveUnfollow } from "../../api/saveUnfollow";
+import { saveFollow } from "../../api/saveFollow";
 
 export default class Following extends React.Component {
   constructor(props) {
@@ -18,10 +20,9 @@ export default class Following extends React.Component {
   };
 
   getUsers = () => {
-    axios
-      .get(settings.followingUrl)
-      .then(res => {
-        this.setState({ users: res.data });
+    getFollowing(settings.user)
+      .then(result => {
+        this.setState({ users: result });
       })
       .catch(error => {
         console.log(error, error.request, error.response, error.config);
@@ -29,16 +30,17 @@ export default class Following extends React.Component {
   };
 
   // Toggles the following status for the given user.
-  toggleFollowing = username => {
+  toggleFollowing = userToFollowOrUnfollow => {
     // Remember the users before the toggle is applied
     const previousUsers = this.state.users;
 
-    // Determine which user is being toggled.
-    const foundUser = this.state.users.find(u => u.user === username);
+    // Determine whether the given user is being followed or unfollowed.
+    const follow = !this.state.users.find(u => u.user === userToFollowOrUnfollow)
+      .youAreFollowing;
 
-    // Update the local state first (i.e. optimistic updates).
+    // Update the local state first (i.e. optimistic UI updates).
     const users = this.state.users.map(user => {
-      if (user.user === username) {
+      if (user.user === userToFollowOrUnfollow) {
         return {
           ...user,
           youAreFollowing: !user.youAreFollowing
@@ -49,20 +51,17 @@ export default class Following extends React.Component {
 
     this.setState({ users });
 
-    // Post the new following status to the API.
-    const unfollow = foundUser.youAreFollowing;
-    if (unfollow) {
-      const url = `${settings.followingUrl}/${username}`;
-      // Unfollow means a DELETE call to the API.
-      axios.delete(url).catch(error => {
+    // Save the new following status to the API.
+    if (follow) {
+      // Save to the API the user must be followed.
+      saveFollow(settings.user, { user: userToFollowOrUnfollow }).catch(error => {
         console.log(error, error.request, error.response, error.config);
         // The API call failed so restore the original state.
         this.setState({ users: previousUsers });
       });
     } else {
-      const data = { user: username };
-      // Follow means a POST to the API.
-      axios.post(settings.followingUrl, data).catch(error => {
+      // Save to the API that the user must be unfollowed.
+      saveUnfollow(settings.user, userToFollowOrUnfollow).catch(error => {
         console.log(error, error.request, error.response, error.config);
         // The API call failed so restore the original state.
         this.setState({ users: previousUsers });

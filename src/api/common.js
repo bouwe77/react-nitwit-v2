@@ -1,5 +1,22 @@
 import axios from "axios";
-import { handleError } from "./utils";
+
+const apiHostname = "https://nitwit-api.azurewebsites.net";
+
+export function getTimelineUrl(username) {
+  return `${apiHostname}/users/${username}/timeline`;
+}
+
+export function addPostUrl(username) {
+  return `${apiHostname}/users/${username}/posts`;
+}
+
+export function getFollowingUrl(username) {
+  return `${apiHostname}/users/${username}/following`;
+}
+
+export function getUnfollowUrl(username, unfollowUsername) {
+  return `${apiHostname}/users/${username}/following/${unfollowUsername}`;
+}
 
 export async function getWithEtag(url, etag) {
   try {
@@ -27,4 +44,21 @@ export async function get(url) {
   } catch (error) {
     handleError(error);
   }
+}
+
+export function post(url, data) {
+  return axios.post(url, data).catch(error => {
+    handleError(error);
+  });
+}
+
+export function delete2(url) {
+  return axios.delete(url).catch(error => {
+    handleError(error);
+  });
+}
+
+export function handleError(error) {
+  console.log(error, error.request, error.response, error.config);
+  throw error;
 }
