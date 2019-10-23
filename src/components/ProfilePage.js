@@ -2,13 +2,17 @@ import React from "react";
 
 import Posts from "./posts/Posts";
 import Compose from "./compose/Compose";
-import usePosts from "./profile/usePosts";
+import usePosts from "./posts/usePosts";
 import { useParams } from "react-router";
+import { getPostsWithEtag } from "../api/getPosts";
 
-function TimelinePage() {
+function ProfilePage() {
   const { username } = useParams();
+  const [posts, addPost] = usePosts(getUserPostsFromApi);
 
-  const [posts, addPost] = usePosts(username);
+  async function getUserPostsFromApi(etag) {
+    return await getPostsWithEtag(username, etag);
+  }
 
   return (
     <>
@@ -21,4 +25,4 @@ function TimelinePage() {
   );
 }
 
-export default TimelinePage;
+export default ProfilePage;

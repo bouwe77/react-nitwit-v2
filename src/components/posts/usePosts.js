@@ -1,10 +1,9 @@
 import { useState } from "react";
 import useInterval from "@use-it/interval";
-import { getTimelineWithEtag } from "../../api/getTimeline";
 import { savePost } from "../../api/savePost";
 import settings from "../../settings";
 
-export default () => {
+export default getPostsFromApi => {
   const defaultDelay = 10000;
   const [delay, setDelay] = useState(0);
   const [posts, setPosts] = useState([]);
@@ -17,7 +16,7 @@ export default () => {
     if (delay !== defaultDelay) setDelay(defaultDelay);
 
     // Call the API to get the posts.
-    const result = await getTimelineWithEtag(settings.username, etag);
+    const result = await getPostsFromApi(etag);
     if (result.isNew) {
       setPosts(result.data);
       setEtag(result.etag);
