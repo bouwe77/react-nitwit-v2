@@ -1,7 +1,10 @@
 import React from "react";
+import { useParams } from "react-router";
 
 function ProfilePage() {
-  return <>Hello from the ProfilePage component :)</>;
+  let { username } = useParams();
+
+  return <>Hello from {username} :)</>;
 }
 
 export default ProfilePage;

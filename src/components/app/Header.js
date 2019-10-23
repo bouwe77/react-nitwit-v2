@@ -2,6 +2,7 @@ import React from "react";
 
 import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
+import settings from "../../settings";
 
 function Header() {
   return (
@@ -22,6 +23,9 @@ function Header() {
           </li>
           <li>
             <Link to="/following">following</Link>
+          </li>
+          <li>
+            <Link to={"/" + settings.username}>profile</Link>
           </li>
         </ul>
       </div>
