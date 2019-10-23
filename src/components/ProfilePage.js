@@ -12,7 +12,7 @@ function TimelinePage() {
 
   return (
     <>
-      <b> {username}'s profile</b>
+      <b>{username}'s profile</b>
       <br />
       <br />
       <Compose addPost={addPost} />
