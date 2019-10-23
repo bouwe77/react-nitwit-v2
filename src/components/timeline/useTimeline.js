@@ -1,8 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
-import settings from "../settings";
+import settings from "../../settings";
 import useInterval from "@use-it/interval";
-import { getWithEtag } from "../api/get";
+import { getWithEtag } from "../../api/get";
 
 export default () => {
   const defaultDelay = 10000;
