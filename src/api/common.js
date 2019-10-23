@@ -59,6 +59,6 @@ export function delete2(url) {
 }
 
 export function handleError(error) {
-  console.log(error, error.request, error.response, error.config);
+  console.log(error.response.status, error, error.request, error.response, error.config);
   throw error;
 }
