@@ -1,41 +1,41 @@
 import { useState } from "react";
 import useInterval from "@use-it/interval";
-import { getTimelineWithEtag } from "../../api/getTimeline";
-import { savePost } from "../../api/savePost";
+import { getPostsWithEtag } from "../../api/getPosts";
+import { savePost } from "../../api/getTimeline";
 
 export default username => {
   const defaultDelay = 10000;
   const [delay, setDelay] = useState(0);
-  const [timeline, setTimeline] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [etag, setEtag] = useState(null);
 
-  // Retrieve the timeline every x seconds
+  // Retrieve the posts every x seconds
   useInterval(async () => {
     // The initial delay is zero so the first API call is done right away.
     // After that, all subsequent calls must be done according to the defaultDelay.
     if (delay !== defaultDelay) setDelay(defaultDelay);
 
-    // Call the API to get the timeline.
-    const result = await getTimelineWithEtag(username, etag);
+    // Call the API to get the posts.
+    const result = await getPostsWithEtag(username, etag);
     if (result.isNew) {
-      setTimeline(result.data);
+      setPosts(result.data);
       setEtag(result.etag);
     }
   }, delay);
 
   const addPost = content => {
-    // Remember the timeline before the new post is added.
-    const prevTimeline = timeline;
+    // Remember the posts before the new post is added.
+    const prevTimeline = posts;
 
     // Add new post to state BEFORE posting it to the API (i.e. "optimistic UI updates")
-    setTimeline([{ user: username, content }, ...timeline]);
+    setPosts([{ user: username, content }, ...posts]);
 
     // Post the new post to the API.
     savePost(username, { content }).catch(() => {
       // Posting to the API failed so "rollback" the state to the previous posts.
-      setTimeline(prevTimeline);
+      setPosts(prevTimeline);
     });
   };
 
-  return [timeline, addPost];
+  return [posts, addPost];
 };
