@@ -11,6 +11,14 @@ export function timelineUrl(username) {
 }
 
 /**
+ * Returns the URL where to issue current user requests to.
+ * @param {string} username
+ */
+export function currentUserUrl() {
+  return `${apiHostname}/users/whoami`;
+}
+
+/**
  * Returns the URL where to issue user requests to.
  * @param {string} username
  */
@@ -44,6 +52,13 @@ export function unfollowUrl(username, unfollowUsername) {
 }
 
 /**
+ * Returns the URL where to issue authentication requests to.
+ */
+export function authenticationUrl() {
+  return `${apiHostname}/authentication`;
+}
+
+/**
  * Issues an HTTP GET with an ETag header to the given URL.
  * The result only contains data when the ETag differs between client and server.
  * @param {string} url
@@ -72,9 +87,14 @@ export async function getWithEtag(url, etag) {
  * Issues an HTTP GET request to the URL.
  * @param {string} url
  */
-export async function get(url) {
+export async function get(url, token = null) {
+  const headers = {};
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
   try {
-    const res = await axios.get(url);
+    const res = await axios.get(url, { headers });
     return res.data;
   } catch (error) {
     handleError(error);
@@ -104,6 +124,7 @@ export function delete2(url) {
 }
 
 function handleError(error) {
-  console.log(error.response.status, error, error.request, error.response, error.config);
+  //  console.log(error.response.status, error, error.request, error.response, error.config);
+  console.log(error.response.status, error.config.url, error.config.method);
   throw error;
 }

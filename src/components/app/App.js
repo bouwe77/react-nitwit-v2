@@ -1,33 +1,12 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
-import Header from "./Header";
-import Container from "./Container";
-import TimelinePage from "../TimelinePage";
-import FollowingPage from "../FollowingPage";
-import ProfilePage from "../ProfilePage";
+import AuthenticatedApp from "./AuthenticatedApp";
+import UnauthenticatedApp from "./UnauthenticatedApp";
+import { useAuth } from "../../context/AuthProvider";
 
 function App() {
-  return (
-    <div className="app">
-      <Router>
-        <Header />
-        <Container>
-          <Switch>
-            <Route path="/" exact>
-              <TimelinePage />
-            </Route>
-            <Route path="/following">
-              <FollowingPage />
-            </Route>
-            <Route path="/:username">
-              <ProfilePage />
-            </Route>
-          </Switch>
-        </Container>
-      </Router>
-    </div>
-  );
+  const { user } = useAuth();
+
+  return <div className="app">{user ? <AuthenticatedApp /> : <UnauthenticatedApp />}</div>;
 }
 
 export default App;

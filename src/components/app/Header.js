@@ -3,8 +3,11 @@ import React from "react";
 import styles from "./Header.module.css";
 import { NavLink } from "react-router-dom";
 import settings from "../../settings";
+//import { useAuth } from "../../context/AuthProvider";
 
 function Header() {
+  //const { isLoggedIn, logout } = useAuth();
+
   return (
     <div className={styles.header}>
       <div>
@@ -37,6 +40,7 @@ function Header() {
       </div>
     </div>
   );
+  //  {isLoggedIn ? <button onClick={logout}>Logout</button> : null}
 }
 
 export default Header;
