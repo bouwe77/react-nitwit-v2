@@ -18,6 +18,8 @@ function AuthProvider(props) {
     promiseFn: auth.getUser
   });
 
+  console.log("user in auth:", user);
+
   const login = (username, password) => {
     auth.login(username, password).then(reload);
   };
