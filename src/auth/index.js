@@ -9,21 +9,26 @@ function getUser() {
 
   getCurrentUser(token)
     .then(user => {
-      console.log("gettUser:", user);
+      console.log("getUser:", user);
       return user;
     })
     .catch(error => {
-      console.log("getUser:", error.response.status);
+      console.log("getUser:", error.response);
+      removeToken();
       throw error;
     });
 }
 
 function login(username, password) {
   // Authenticate with the given credentials.
-  return authenticate(username, password).then(result => {
-    console.log("authenticate:", result.data);
-    saveToken(result.data);
-  });
+  return authenticate(username, password)
+    .then(result => {
+      saveToken(result.data);
+    })
+    .catch(error => {
+      removeToken();
+      throw error;
+    });
 }
 
 function logout() {
