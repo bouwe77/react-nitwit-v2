@@ -11,6 +11,14 @@ export function timelineUrl(username) {
 }
 
 /**
+ * Returns the URL where to issue user requests to.
+ * @param {string} username
+ */
+export function userUrl(username) {
+  return `${apiHostname}/users/${username}`;
+}
+
+/**
  * Returns the URL where to issue posts requests to.
  * @param {string} username
  */

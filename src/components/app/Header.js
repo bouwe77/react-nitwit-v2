@@ -1,7 +1,7 @@
 import React from "react";
 
 import styles from "./Header.module.css";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import settings from "../../settings";
 
 function Header() {
@@ -19,13 +19,19 @@ function Header() {
       <div>
         <ul>
           <li>
-            <Link to="/">timeline</Link>
+            <NavLink to="/" exact activeClassName={styles.selected}>
+              timeline
+            </NavLink>
           </li>
           <li>
-            <Link to="/following">following</Link>
+            <NavLink to="/following" activeClassName={styles.selected}>
+              following
+            </NavLink>
           </li>
           <li>
-            <Link to={"/" + settings.username}>profile</Link>
+            <NavLink to={"/" + settings.username} activeClassName={styles.selected}>
+              profile
+            </NavLink>
           </li>
         </ul>
       </div>
