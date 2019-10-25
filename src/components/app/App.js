@@ -1,7 +1,7 @@
 import React from "react";
 import AuthenticatedApp from "./AuthenticatedApp";
 import UnauthenticatedApp from "./UnauthenticatedApp";
-import { useAuth } from "../../context/AuthProvider";
+import { useAuth } from "../../auth/AuthProvider";
 
 function App() {
   const { user } = useAuth();

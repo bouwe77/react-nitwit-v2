@@ -1,6 +1,5 @@
-import React, { createContext } from "react";
-import * as auth from "../auth";
-import { useAsync } from "react-async";
+import React, { createContext, useState } from "react";
+import * as auth from "./authHandler";
 
 /**
  * The AuthContext handles context regarding authentication related functionality.
@@ -12,26 +11,22 @@ const AuthContext = createContext();
  * It provides means of holding data of the logged in user and functions for logging in or out.
  */
 function AuthProvider(props) {
-  //const user = auth.getUser();
+  const [user, setUser] = useState(null);
 
-  const { user = null, reload } = useAsync({
-    promiseFn: auth.getUser
-  });
+  function login(username, password) {
+    auth.login(username, password).then(() => {
+      auth.getUser().then(user => {
+        setUser(user);
+      });
+    });
+  }
 
-  console.log("user in auth:", user);
+  function logout() {
+    setUser(null);
+    auth.logout();
+  }
 
-  const login = (username, password) => {
-    auth.login(username, password).then(reload);
-  };
-
-  const logout = () => {
-    return auth.logout();
-    //TODO Clear user data
-  };
-
-  const isLoggedIn = () => {
-    return auth.isLoggedIn();
-  };
+  const isLoggedIn = user ? true : false;
 
   return <AuthContext.Provider value={{ user, login, logout, isLoggedIn }} {...props} />;
 }

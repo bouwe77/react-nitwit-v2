@@ -87,18 +87,18 @@ export async function getWithEtag(url, etag) {
  * Issues an HTTP GET request to the URL.
  * @param {string} url
  */
-export async function get(url, token = null) {
+export function get(url, token = null) {
   const headers = {};
   if (token) {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  try {
-    const res = await axios.get(url, { headers });
-    return res.data;
-  } catch (error) {
-    handleError(error);
-  }
+  return axios
+    .get(url, { headers })
+    .then(({ data }) => data)
+    .catch(error => {
+      handleError(error);
+    });
 }
 
 /**

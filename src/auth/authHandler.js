@@ -7,16 +7,10 @@ function getUser() {
   const token = getToken();
   if (!token) return null;
 
-  getCurrentUser(token)
-    .then(user => {
-      console.log("getUser:", user);
-      return user;
-    })
-    .catch(error => {
-      console.log("getUser:", error.response);
-      removeToken();
-      throw error;
-    });
+  return getCurrentUser(token).catch(error => {
+    removeToken();
+    throw error;
+  });
 }
 
 function login(username, password) {

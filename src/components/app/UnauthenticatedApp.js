@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAuth } from "../../context/AuthProvider";
+import { useAuth } from "../../auth/AuthProvider";
 
 function UnauthenticatedApp() {
   const [error, setError] = useState(false);
