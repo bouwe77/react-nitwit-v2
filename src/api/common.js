@@ -4,7 +4,6 @@ const apiHostname = "https://nitwit-api.azurewebsites.net";
 
 /**
  * Returns the URL where to issue timeline requests to.
- * @param {string} username
  */
 export function timelineUrl(username) {
   return `${apiHostname}/users/${username}/timeline`;
@@ -12,7 +11,6 @@ export function timelineUrl(username) {
 
 /**
  * Returns the URL where to issue current user requests to.
- * @param {string} username
  */
 export function currentUserUrl() {
   return `${apiHostname}/users/whoami`;
@@ -20,7 +18,6 @@ export function currentUserUrl() {
 
 /**
  * Returns the URL where to issue user requests to.
- * @param {string} username
  */
 export function userUrl(username) {
   return `${apiHostname}/users/${username}`;
@@ -28,7 +25,6 @@ export function userUrl(username) {
 
 /**
  * Returns the URL where to issue posts requests to.
- * @param {string} username
  */
 export function postsUrl(username) {
   return `${apiHostname}/users/${username}/posts`;
@@ -36,7 +32,6 @@ export function postsUrl(username) {
 
 /**
  * Returns the URL where to issue follow requests to.
- * @param {string} username
  */
 export function followingUrl(username) {
   return `${apiHostname}/users/${username}/following`;
@@ -44,8 +39,6 @@ export function followingUrl(username) {
 
 /**
  * Returns the URL where to issue unfollow requests to.
- * @param {string} username
- * @param {string} unfollowUsername
  */
 export function unfollowUrl(username, unfollowUsername) {
   return `${apiHostname}/users/${username}/following/${unfollowUsername}`;
@@ -61,8 +54,6 @@ export function authenticationUrl() {
 /**
  * Issues an HTTP GET with an ETag header to the given URL.
  * The result only contains data when the ETag differs between client and server.
- * @param {string} url
- * @param {string} etag
  */
 export async function getWithEtag(url, etag, token = null) {
   const headers = { "If-None-Match": etag };

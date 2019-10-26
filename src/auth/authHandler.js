@@ -1,8 +1,11 @@
 import { authenticate } from "../api/authenticate";
 import * as jwt from "./jwt";
 
+/**
+ * Authenticates agains the API with the given credentials.
+ * If successful, a JWT token is stored in the browser's local storage.
+ */
 function login(username, password) {
-  // Authenticate with the given credentials.
   return authenticate(username, password)
     .then(result => {
       jwt.save(result.data);
@@ -13,13 +16,11 @@ function login(username, password) {
     });
 }
 
+/**
+ * Logout means: just remove the JWT token.
+ */
 function logout() {
   jwt.remove();
 }
 
-function isLoggedIn() {
-  const token = jwt.get();
-  return token ? true : false;
-}
-
-export { login, logout, isLoggedIn };
+export { login, logout };
