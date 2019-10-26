@@ -7,10 +7,15 @@ function getUser() {
   const token = getToken();
   if (!token) return null;
 
-  return getCurrentUser(token).catch(error => {
-    removeToken();
-    throw error;
-  });
+  return getCurrentUser(token)
+    .then(user => {
+      console.log("getCurrentUser", user);
+      return user;
+    })
+    .catch(error => {
+      removeToken();
+      throw error;
+    });
 }
 
 function login(username, password) {

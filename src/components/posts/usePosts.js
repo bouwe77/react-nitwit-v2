@@ -4,7 +4,7 @@ import { savePost } from "../../api/savePost";
 import settings from "../../settings";
 
 export default getPostsFromApi => {
-  const defaultDelay = 10000;
+  const defaultDelay = 60000;
   const [delay, setDelay] = useState(0);
   const [posts, setPosts] = useState([]);
   const [etag, setEtag] = useState(null);

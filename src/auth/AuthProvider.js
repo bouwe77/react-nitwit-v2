@@ -11,13 +11,22 @@ const AuthContext = createContext();
  * It provides means of holding data of the logged in user and functions for logging in or out.
  */
 function AuthProvider(props) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const user = getUser();
+    return user;
+  });
+
+  function getUser() {
+    return auth
+      .getUser()
+      .then(user => user)
+      .catch(() => null);
+  }
 
   function login(username, password) {
     auth.login(username, password).then(() => {
-      auth.getUser().then(user => {
-        setUser(user);
-      });
+      const user = getUser();
+      setUser(user);
     });
   }
 
