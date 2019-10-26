@@ -64,11 +64,14 @@ export function authenticationUrl() {
  * @param {string} url
  * @param {string} etag
  */
-export async function getWithEtag(url, etag) {
+export async function getWithEtag(url, etag, token = null) {
+  const headers = { "If-None-Match": etag };
+  if (token) headers["Authorization"] = `Bearer ${token}`;
+
   try {
     const res = await axios.get(url, {
       // Add a header to let the server know what's the version on the client.
-      headers: { "If-None-Match": etag },
+      headers,
       validateStatus: function(status) {
         return status < 400; // This means all status codes below 400 are valid
       }

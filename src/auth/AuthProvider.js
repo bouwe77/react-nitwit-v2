@@ -1,5 +1,6 @@
 import React, { createContext, useState } from "react";
 import * as auth from "./authHandler";
+import { getCurrentLoggedInUser } from "../api/getUser";
 
 /**
  * The AuthContext handles context regarding authentication related functionality.
@@ -17,8 +18,7 @@ function AuthProvider(props) {
   });
 
   function getUser() {
-    return auth
-      .getUser()
+    return getCurrentLoggedInUser()
       .then(user => user)
       .catch(() => null);
   }

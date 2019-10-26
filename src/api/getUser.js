@@ -1,11 +1,9 @@
-import { userUrl, currentUserUrl, get } from "./common";
+import { currentUserUrl, get } from "./common";
+import * as jwt from "../auth/jwt";
 
-export function getUser(username, token) {
-  const url = userUrl(username);
-  return get(url, token);
-}
+export function getCurrentLoggedInUser() {
+  const token = jwt.get();
 
-export function getCurrentUser(token) {
   const url = currentUserUrl();
-  return get(url, token);
+  return token ? get(url, token) : null;
 }
