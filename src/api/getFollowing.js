@@ -1,6 +1,6 @@
-import { followingUrl, get } from "./common";
+import { get } from "./common";
 
 export function getFollowing(username) {
-  const url = followingUrl(username);
+  const url = `${process.env.REACT_APP_API_URL}/users/${username}/following`;
   return get(url);
 }

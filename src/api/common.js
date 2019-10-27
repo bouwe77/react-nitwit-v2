@@ -1,56 +1,5 @@
 import axios from "axios";
 
-const apiHostname = "https://nitwit-api.azurewebsites.net";
-
-/**
- * Returns the URL where to issue timeline requests to.
- */
-export function timelineUrl(username) {
-  return `${apiHostname}/users/${username}/timeline`;
-}
-
-/**
- * Returns the URL where to issue current user requests to.
- */
-export function currentUserUrl() {
-  return `${apiHostname}/users/whoami`;
-}
-
-/**
- * Returns the URL where to issue user requests to.
- */
-export function userUrl(username) {
-  return `${apiHostname}/users/${username}`;
-}
-
-/**
- * Returns the URL where to issue posts requests to.
- */
-export function postsUrl(username) {
-  return `${apiHostname}/users/${username}/posts`;
-}
-
-/**
- * Returns the URL where to issue follow requests to.
- */
-export function followingUrl(username) {
-  return `${apiHostname}/users/${username}/following`;
-}
-
-/**
- * Returns the URL where to issue unfollow requests to.
- */
-export function unfollowUrl(username, unfollowUsername) {
-  return `${apiHostname}/users/${username}/following/${unfollowUsername}`;
-}
-
-/**
- * Returns the URL where to issue authentication requests to.
- */
-export function authenticationUrl() {
-  return `${apiHostname}/authentication`;
-}
-
 /**
  * Issues an HTTP GET with an ETag header to the given URL.
  * The result only contains data when the ETag differs between client and server.
