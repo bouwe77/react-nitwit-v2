@@ -8,7 +8,7 @@ import { AuthProvider } from "./auth/AuthProvider";
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <AuthProvider>
-    OVER GEWOON AXIOS DIRECT GEBRUIKEN, behalve bij etag
+    OVERAL GEWOON AXIOS DIRECT GEBRUIKEN, behalve bij etag
     <App />
   </AuthProvider>,
   rootElement
