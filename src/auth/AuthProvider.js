@@ -30,6 +30,7 @@ function AuthProvider(props) {
     setUser(null);
     auth.logout();
   }
+  console.log(user);
 
   const isLoggedIn = user ? true : false;
 
