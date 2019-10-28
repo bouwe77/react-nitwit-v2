@@ -8,6 +8,8 @@ export function getCurrentLoggedInUser() {
 
   const config = { headers: getHeaders(token) };
 
+  if (!token) return Promise.resolve(null);
+
   const url = `${process.env.REACT_APP_API_URL}/users/whoami`;
   return axios.get(url, config).catch(error => handleError(error));
 }
