@@ -14,10 +14,13 @@ const AuthContext = createContext();
 function AuthProvider(props) {
   const [user, setUser] = useState(() => getUser());
 
-  function getUser() {
-    return getCurrentLoggedInUser()
-      .then(user => user)
-      .catch(() => null);
+  async function getUser() {
+    try {
+      const user = await getCurrentLoggedInUser();
+      return user;
+    } catch (e) {
+      return null;
+    }
   }
 
   function login(username, password) {

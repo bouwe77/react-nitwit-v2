@@ -7,14 +7,17 @@ import * as jwt from "../auth/jwt";
  */
 export async function getWithEtag(url, etag, token = null) {
   try {
-    const res = await axios.get(url, {
+    const config = {
       headers: getHeaders(token, etag),
       validateStatus: function(status) {
         return status < 400; // This means all status codes below 400 are valid
       }
-    });
+    };
+    console.log(config);
 
-    // Return a boolean indicating the data has changed.
+    const res = await axios.get(url, config);
+
+    // Return a boolean indicating whether the data has changed.
     // And if so, also return the data itself and the new etag.
     return etag !== res.headers.etag && res.status === 200
       ? { isNew: true, etag: res.headers.etag, data: res.data }
@@ -26,12 +29,14 @@ export async function getWithEtag(url, etag, token = null) {
 
 export function getHeaders(token, etag = null) {
   if (!token) jwt.get();
+  console.log(token);
 
   const headers = {};
 
   if (token) headers["Authorization"] = `Bearer ${token}`;
 
   if (etag) headers["If-None-Match"] = etag;
+  console.log(headers);
 
   return headers;
 }
