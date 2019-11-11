@@ -19,18 +19,17 @@ export default class Following extends React.Component {
     this.getUsers();
   };
 
-  getUsers = () => {
-    getFollowing(settings.username)
-      .then(result => {
-        this.setState({ users: result });
-      })
-      .catch(error => {
-        console.log(error, error.request, error.response, error.config);
-      });
+  getUsers = async () => {
+    try {
+      const users = await getFollowing(settings.username);
+      this.setState({ users });
+    } catch (error) {
+      console.log(error, error.request, error.response, error.config);
+    }
   };
 
   // Toggles the following status for the given user.
-  toggleFollowing = userToFollowOrUnfollow => {
+  toggleFollowing = async userToFollowOrUnfollow => {
     // Remember the users before the toggle is applied
     const previousUsers = this.state.users;
 
@@ -52,20 +51,18 @@ export default class Following extends React.Component {
     this.setState({ users });
 
     // Save the new following status to the API.
-    if (follow) {
-      // Save to the API the user must be followed.
-      saveFollow(settings.username, { user: userToFollowOrUnfollow }).catch(error => {
-        console.log(error, error.request, error.response, error.config);
-        // The API call failed so restore the original state.
-        this.setState({ users: previousUsers });
-      });
-    } else {
-      // Save to the API that the user must be unfollowed.
-      saveUnfollow(settings.username, userToFollowOrUnfollow).catch(error => {
-        console.log(error, error.request, error.response, error.config);
-        // The API call failed so restore the original state.
-        this.setState({ users: previousUsers });
-      });
+    try {
+      if (follow) {
+        // Save to the API the user must be followed.
+        await saveFollow(settings.username, { user: userToFollowOrUnfollow });
+      } else {
+        // Save to the API that the user must be unfollowed.
+        await saveUnfollow(settings.username, userToFollowOrUnfollow);
+      }
+    } catch (error) {
+      console.log(error, error.request, error.response, error.config);
+      // The API call failed so restore the original state.
+      this.setState({ users: previousUsers });
     }
   };
 
