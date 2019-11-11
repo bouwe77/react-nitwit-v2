@@ -9,21 +9,24 @@ export default () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const login = useAuth();
+  const { login } = useAuth();
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
 
     const errorMessage = validateUsername();
     if (errorMessage) {
       setError(errorMessage);
-      return;
     }
 
     setError(null);
-    login(username, password)
-      .next(() => setIsLoggedIn(true))
-      .catch(() => setError("Invalid credentials"));
+
+    try {
+      await login(username, password);
+      setIsLoggedIn(true);
+    } catch (error) {
+      setError("Invalid credentials");
+    }
   };
 
   const handleUsernameChange = event => {

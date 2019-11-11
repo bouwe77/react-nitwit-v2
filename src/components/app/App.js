@@ -4,7 +4,7 @@ import UnauthenticatedApp from "./UnauthenticatedApp";
 import { useAuth } from "../../auth/AuthProvider";
 
 function App() {
-  const { isLoggedIn } = false; //useAuth();
+  const { isLoggedIn } = useAuth();
 
   return (
     <div className="app">{isLoggedIn ? <AuthenticatedApp /> : <UnauthenticatedApp />}</div>

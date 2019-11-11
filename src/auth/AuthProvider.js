@@ -23,10 +23,14 @@ function AuthProvider(props) {
     }
   }
 
-  function login(username, password) {
-    auth.login(username, password).then(() => {
+  async function login(username, password) {
+    try {
+      await auth.login(username, password);
       setUser(getUser());
-    });
+    } catch (error) {
+      //console.log("error:", error);
+      throw error;
+    }
   }
 
   function logout() {

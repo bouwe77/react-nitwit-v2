@@ -4,7 +4,7 @@ import { getWithEtag, handleError } from "./common";
 export async function getPostsWithEtag(username, etag) {
   const url = `${process.env.REACT_APP_API_URL}/users/${username}/posts`;
   try {
-    await getWithEtag(url, etag);
+    return await getWithEtag(url, etag);
   } catch (error) {
     handleError(error);
   }
@@ -13,7 +13,7 @@ export async function getPostsWithEtag(username, etag) {
 export async function getPosts(username) {
   const url = `${process.env.REACT_APP_API_URL}/users/${username}/posts`;
   try {
-    await axios.get(url);
+    return await axios.get(url);
   } catch (error) {
     handleError(error);
   }

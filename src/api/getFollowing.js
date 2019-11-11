@@ -7,7 +7,7 @@ export async function getFollowing(username) {
   const config = { headers: getHeaders() };
 
   try {
-    return axios.get(url, config);
+    return await axios.get(url, config);
   } catch (error) {
     return handleError(error);
   }
