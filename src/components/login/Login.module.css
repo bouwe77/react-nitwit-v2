@@ -1,0 +1,21 @@
+.form-container {
+  width: 150px;
+  text-align: right;
+}
+
+.form-container div {
+  margin-top: 5px;
+}
+
+button {
+  width: 70px;
+  height: 30px;
+  font-size: 14pt;
+  color: #808b96;
+  border: 1px solid #808b96;
+  background: #eaecee;
+}
+
+.error {
+  color: Red;
+}

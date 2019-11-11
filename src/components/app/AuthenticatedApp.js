@@ -2,7 +2,7 @@ import React from "react";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import Header from "./Header";
+import Header from "./AuthenticatedHeader";
 import Container from "./Container";
 import TimelinePage from "../TimelinePage";
 import FollowingPage from "../FollowingPage";

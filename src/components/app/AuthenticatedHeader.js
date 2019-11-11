@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import settings from "../../settings";
 import { useAuth } from "../../auth/AuthProvider";
 
-function Header() {
+export default () => {
   const { isLoggedIn, logout } = useAuth();
 
   return (
@@ -41,6 +41,4 @@ function Header() {
       <div>{isLoggedIn ? <button onClick={logout}>Logout</button> : null}</div>
     </div>
   );
-}
-
-export default Header;
+};
