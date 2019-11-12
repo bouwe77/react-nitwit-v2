@@ -4,18 +4,23 @@ import Posts from "./posts/Posts";
 import Compose from "./compose/Compose";
 import usePosts from "./posts/usePosts";
 import { getTimelineWithEtag } from "../api/getTimeline";
-import settings from "../settings";
+import { useAuth } from "../auth/AuthProvider";
 
 function TimelinePage() {
   const [posts, addPost] = usePosts(getTimelineFromApi);
+  const { user } = useAuth();
 
   async function getTimelineFromApi(etag) {
-    return await getTimelineWithEtag(settings.username, etag);
+    return await getTimelineWithEtag(user.username, etag);
   }
+
+  const addPost2 = content => {
+    addPost(content, user.username);
+  };
 
   return (
     <>
-      <Compose addPost={addPost} />
+      <Compose addPost={addPost2} />
       <Posts posts={posts} />
     </>
   );

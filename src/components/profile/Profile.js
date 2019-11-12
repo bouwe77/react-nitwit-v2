@@ -6,18 +6,27 @@ import usePosts from "../posts/usePosts";
 import { getPostsWithEtag } from "../../api/getPosts";
 import { useAuth } from "../../auth/AuthProvider";
 
-function Profile({ username }) {
+function Profile({ profileUsername }) {
   const [posts, addPost] = usePosts(getUserPostsFromApi);
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, user } = useAuth();
 
   async function getUserPostsFromApi(etag) {
-    return await getPostsWithEtag(username, etag);
+    return await getPostsWithEtag(profileUsername, etag);
   }
+
+  const addPost2 = content => {
+    addPost(content, user.username);
+  };
 
   return (
     <>
-      {isLoggedIn && <Compose addPost={addPost} />}
-      {posts.length === 0 ? `${username} has no posts yet... :(` : <Posts posts={posts} />}
+      {isLoggedIn && user.username === profileUsername && <Compose addPost={addPost2} />}
+
+      {posts.length === 0 ? (
+        `${profileUsername} has no posts yet... :(`
+      ) : (
+        <Posts posts={posts} />
+      )}
     </>
   );
 }

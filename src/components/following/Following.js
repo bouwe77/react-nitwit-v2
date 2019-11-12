@@ -1,6 +1,5 @@
 import React from "react";
 
-import settings from "../../settings";
 import UserList from "./UserList";
 import { getFollowing } from "../../api/getFollowing";
 import { saveUnfollow } from "../../api/saveUnfollow";
@@ -21,7 +20,7 @@ export default class Following extends React.Component {
 
   getUsers = async () => {
     try {
-      const users = await getFollowing(settings.username);
+      const users = await getFollowing(this.props.username);
       this.setState({ users });
     } catch (error) {
       console.log(error, error.request, error.response, error.config);
@@ -54,10 +53,10 @@ export default class Following extends React.Component {
     try {
       if (follow) {
         // Save to the API the user must be followed.
-        await saveFollow(settings.username, { user: userToFollowOrUnfollow });
+        await saveFollow(this.props.username, { user: userToFollowOrUnfollow });
       } else {
         // Save to the API that the user must be unfollowed.
-        await saveUnfollow(settings.username, userToFollowOrUnfollow);
+        await saveUnfollow(this.props.username, userToFollowOrUnfollow);
       }
     } catch (error) {
       console.log(error, error.request, error.response, error.config);

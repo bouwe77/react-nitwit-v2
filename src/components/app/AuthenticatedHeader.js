@@ -2,11 +2,10 @@ import React from "react";
 
 import styles from "./Header.module.css";
 import { NavLink } from "react-router-dom";
-import settings from "../../settings";
 import { useAuth } from "../../auth/AuthProvider";
 
 export default () => {
-  const { isLoggedIn, logout } = useAuth();
+  const { logout, user } = useAuth();
 
   return (
     <div className={styles.header}>
@@ -32,13 +31,15 @@ export default () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to={"/" + settings.username} activeClassName={styles.selected}>
+            <NavLink to={"/" + user.username} activeClassName={styles.selected}>
               profile
             </NavLink>
           </li>
         </ul>
       </div>
-      <div>{isLoggedIn ? <button onClick={logout}>Logout</button> : null}</div>
+      <div>
+        <button onClick={logout}>Logout</button>
+      </div>
     </div>
   );
 };

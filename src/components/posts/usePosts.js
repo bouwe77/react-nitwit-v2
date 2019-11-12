@@ -1,7 +1,6 @@
 import { useState } from "react";
 import useInterval from "@use-it/interval";
 import { savePost } from "../../api/savePost";
-import settings from "../../settings";
 
 export default getPostsFromApi => {
   const defaultDelay = 60000;
@@ -23,15 +22,15 @@ export default getPostsFromApi => {
     }
   }, delay);
 
-  const addPost = content => {
+  const addPost = (content, username) => {
     // Remember the posts before the new post is added.
     const prevPosts = posts;
 
     // Add new post to state BEFORE posting it to the API (i.e. "optimistic UI updates")
-    setPosts([{ user: settings.username, content }, ...posts]);
+    setPosts([{ user: username, content }, ...posts]);
 
     // Post the new post to the API.
-    savePost(settings.username, { content }).catch(() => {
+    savePost(username, { content }).catch(() => {
       // Posting to the API failed so "rollback" the state to the previous posts.
       setPosts(prevPosts);
     });
