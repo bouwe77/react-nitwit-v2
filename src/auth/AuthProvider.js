@@ -16,11 +16,11 @@ function AuthProvider(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   async function getUser(x) {
-    console.log("when:", x);
+    //console.log("when:", x);
 
     try {
       const user = await getCurrentLoggedInUser();
-      console.log("userr:", user);
+      //console.log("userr:", user);
 
       return user;
     } catch (e) {
@@ -45,7 +45,7 @@ function AuthProvider(props) {
     auth.logout();
   }
 
-  console.log("isLoggedIn:", isLoggedIn);
+  //console.log("isLoggedIn:", isLoggedIn);
 
   return <AuthContext.Provider value={{ user, login, logout, isLoggedIn }} {...props} />;
 }

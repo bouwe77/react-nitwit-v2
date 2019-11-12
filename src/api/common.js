@@ -28,7 +28,6 @@ export async function getWithEtag(url, etag, token = null) {
 
 export function getHeaders(token, etag = null) {
   if (!token) jwt.get();
-  console.log("token:", token);
 
   const headers = {};
 

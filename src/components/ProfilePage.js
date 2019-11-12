@@ -10,22 +10,17 @@ function ProfilePage() {
   const { username } = useParams();
 
   useEffect(() => {
-    async function doesUserExist(username) {
+    async function doesUserExist() {
       try {
-        const user = await getUser(username);
-        return user ? true : false;
+        const user = await getUser(username).then(user => user);
+        setUserFound(user != null);
       } catch {
-        console.log("hiero error");
-
-        return false;
+        setUserFound(userFound);
       }
     }
 
-    const result = doesUserExist(username);
-    console.log("result:", result);
-
-    //    setUserFound(result);
-  }, [username]);
+    doesUserExist();
+  }, [username, userFound]);
 
   return <>{userFound ? <Profile profileUsername={username} /> : "User does not exist"}</>;
 }

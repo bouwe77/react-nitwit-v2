@@ -21,17 +21,20 @@ export async function getCurrentLoggedInUser() {
 }
 
 export async function getUser(username) {
+  const config = {
+    validateStatus: function(status) {
+      return status < 400 || status === 404;
+      // This means all status codes below 400 and 404 itself are valid
+    }
+  };
+
   const url = `${process.env.REACT_APP_API_URL}/users/${username}`;
   try {
-    const result = await axios.get(url);
-    console.log("getUser:", result.data);
-
-    return result.data;
+    const result = await axios.get(url, config);
+    if (result.status === 404) return null;
+    // Promise.resolve(null);
+    else return result.data; // Promise.resolve(result.data);
   } catch (error) {
-    //if (error.response.status===401 || error.response.status===404)
-    //  return null;
-
-    console.log("getUserError");
     handleError(error);
   }
 }
