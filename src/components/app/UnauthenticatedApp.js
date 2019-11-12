@@ -8,13 +8,6 @@ import ProfilePage from "../ProfilePage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function UnauthenticatedApp() {
-  const [error, setError] = useState(false);
-  const { login } = useAuth();
-
-  function handleLogin() {
-    login("bouwe", "password").catch(() => setError(true));
-  }
-
   return (
     <>
       <Router>
