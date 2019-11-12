@@ -22,7 +22,7 @@ export default getPostsFromApi => {
     }
   }, delay);
 
-  const addPost = (content, username) => {
+  const addPost = async (content, username) => {
     // Remember the posts before the new post is added.
     const prevPosts = posts;
 
@@ -30,7 +30,7 @@ export default getPostsFromApi => {
     setPosts([{ user: username, content }, ...posts]);
 
     // Post the new post to the API.
-    savePost(username, { content }).catch(() => {
+    await savePost(username, { content }).catch(() => {
       // Posting to the API failed so "rollback" the state to the previous posts.
       setPosts(prevPosts);
     });

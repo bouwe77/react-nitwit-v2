@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useAuth } from "../../auth/AuthProvider";
+import React from "react";
 import Header from "./UnauthenticatedHeader";
 import Container from "./Container";
 import LoginPage from "../LoginPage";
