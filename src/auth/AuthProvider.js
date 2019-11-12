@@ -12,11 +12,16 @@ const AuthContext = createContext();
  * It provides means of holding data of the logged in user and functions for logging in or out.
  */
 function AuthProvider(props) {
-  const [user, setUser] = useState(() => getUser());
+  const [user, setUser] = useState(() => getUser("useState"));
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  async function getUser() {
+  async function getUser(x) {
+    console.log("when:", x);
+
     try {
       const user = await getCurrentLoggedInUser();
+      console.log("userr:", user);
+
       return user;
     } catch (e) {
       return null;
@@ -26,7 +31,9 @@ function AuthProvider(props) {
   async function login(username, password) {
     try {
       await auth.login(username, password);
-      setUser(getUser());
+      const user = getUser("login");
+      setUser(user);
+      setIsLoggedIn(user != null);
     } catch (error) {
       //console.log("error:", error);
       throw error;
@@ -38,7 +45,7 @@ function AuthProvider(props) {
     auth.logout();
   }
 
-  const isLoggedIn = user ? true : false;
+  console.log("isLoggedIn:", isLoggedIn);
 
   return <AuthContext.Provider value={{ user, login, logout, isLoggedIn }} {...props} />;
 }

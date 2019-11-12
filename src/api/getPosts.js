@@ -2,6 +2,8 @@ import axios from "axios";
 import { getWithEtag, handleError } from "./common";
 
 export async function getPostsWithEtag(username, etag) {
+  console.log(username);
+
   const url = `${process.env.REACT_APP_API_URL}/users/${username}/posts`;
   try {
     return await getWithEtag(url, etag);

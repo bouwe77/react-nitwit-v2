@@ -13,7 +13,6 @@ export async function getWithEtag(url, etag, token = null) {
         return status < 400; // This means all status codes below 400 are valid
       }
     };
-    console.log(config);
 
     const res = await axios.get(url, config);
 
@@ -29,14 +28,13 @@ export async function getWithEtag(url, etag, token = null) {
 
 export function getHeaders(token, etag = null) {
   if (!token) jwt.get();
-  console.log(token);
+  console.log("token:", token);
 
   const headers = {};
 
   if (token) headers["Authorization"] = `Bearer ${token}`;
 
   if (etag) headers["If-None-Match"] = etag;
-  console.log(headers);
 
   return headers;
 }

@@ -5,9 +5,10 @@ import Post from "./Post";
 /**
  * Renders the given posts array.
  */
-function Timeline({ posts }) {
+function Posts({ posts }) {
   return (
     <>
+      {posts.length === 0 && "No posts yet..."}
       {posts.map((post, index) => (
         <Post post={post} key={index} />
       ))}
@@ -15,4 +16,4 @@ function Timeline({ posts }) {
   );
 }
 
-export default Timeline;
+export default Posts;
