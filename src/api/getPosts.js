@@ -13,7 +13,8 @@ export async function getPostsWithEtag(username, etag) {
 export async function getPosts(username) {
   const url = `${process.env.REACT_APP_API_URL}/users/${username}/posts`;
   try {
-    return await axios.get(url);
+    const result = await axios.get(url);
+    return result.data;
   } catch (error) {
     handleError(error);
   }

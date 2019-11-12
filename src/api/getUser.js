@@ -12,7 +12,8 @@ export async function getCurrentLoggedInUser() {
 
   const url = `${process.env.REACT_APP_API_URL}/users/whoami`;
   try {
-    return await axios.get(url, config);
+    const result = await axios.get(url, config);
+    return result.data;
   } catch (error) {
     handleError(error);
   }
