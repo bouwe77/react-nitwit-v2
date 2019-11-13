@@ -15,13 +15,11 @@ function AuthProvider(props) {
   const [user, setUser] = useState(() => getUser("useState"));
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  async function getUser(x) {
-    //console.log("when:", x);
+  console.log("token:", auth.getToken());
 
+  async function getUser(x) {
     try {
       const user = await getCurrentLoggedInUser();
-      //console.log("userr:", user);
-
       return user;
     } catch (e) {
       return null;
@@ -35,13 +33,15 @@ function AuthProvider(props) {
       setUser(user);
       setIsLoggedIn(user != null);
     } catch (error) {
-      //console.log("error:", error);
+      setIsLoggedIn(false);
+      console.log("error:", error);
       throw error;
     }
   }
 
   function logout() {
     setUser(null);
+    setIsLoggedIn(false);
     auth.logout();
   }
 

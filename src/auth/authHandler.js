@@ -8,6 +8,8 @@ import * as jwt from "./jwt";
 async function login(username, password) {
   try {
     const result = await authenticate(username, password);
+    console.log(result.data);
+
     jwt.save(result.data);
   } catch (error) {
     jwt.remove();
@@ -22,4 +24,8 @@ function logout() {
   jwt.remove();
 }
 
-export { login, logout };
+function getToken() {
+  return jwt.get();
+}
+
+export { login, logout, getToken };
