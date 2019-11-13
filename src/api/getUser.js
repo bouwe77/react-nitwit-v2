@@ -13,8 +13,6 @@ export async function getCurrentLoggedInUser() {
 
   const config = { headers: getHeaders(token) };
 
-  if (!token) return null;
-
   const url = `${process.env.REACT_APP_API_URL}/users/whoami`;
   try {
     const result = await axios.get(url, config);
@@ -24,6 +22,9 @@ export async function getCurrentLoggedInUser() {
   }
 }
 
+/**
+ * Requests the user by username without token.
+ */
 export async function getUser(username) {
   const config = {
     validateStatus: function(status) {

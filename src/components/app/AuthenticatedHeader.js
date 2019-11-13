@@ -35,10 +35,12 @@ export default () => {
               profile
             </NavLink>
           </li>
+          <li>
+            <a href="#" onClick={logout}>
+              logout
+            </a>
+          </li>
         </ul>
-      </div>
-      <div>
-        <button onClick={logout}>Logout</button>
       </div>
     </div>
   );

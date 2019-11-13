@@ -27,7 +27,7 @@ export async function getWithEtag(url, etag, token = null) {
 }
 
 export function getHeaders(token, etag = null) {
-  if (!token) jwt.get();
+  if (!token) token = jwt.get();
 
   const headers = {};
 
@@ -39,7 +39,6 @@ export function getHeaders(token, etag = null) {
 }
 
 export function handleError(error) {
-  //  console.log(error.response.status, error, error.request, error.response, error.config);
   console.log(
     error.response.status,
     error.response.data.Message,
