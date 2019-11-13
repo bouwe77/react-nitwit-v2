@@ -37,8 +37,7 @@ export async function getUser(username) {
   try {
     const result = await axios.get(url, config);
     if (result.status === 404) return null;
-    // Promise.resolve(null);
-    else return result.data; // Promise.resolve(result.data);
+    else return result.data;
   } catch (error) {
     handleError(error);
   }

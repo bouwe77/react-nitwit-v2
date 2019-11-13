@@ -8,7 +8,8 @@ export async function getTimelineWithEtag(username, etag) {
   const url = `${process.env.REACT_APP_API_URL}/users/${username}/timeline`;
 
   try {
-    return await getWithEtag(url, etag, token);
+    const data = await getWithEtag(url, etag, token);
+    return data;
   } catch (error) {
     handleError(error);
   }

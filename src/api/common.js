@@ -20,7 +20,7 @@ export async function getWithEtag(url, etag, token = null) {
     // And if so, also return the data itself and the new etag.
     return etag !== res.headers.etag && res.status === 200
       ? { isNew: true, etag: res.headers.etag, data: res.data }
-      : { isNew: false };
+      : { isNew: false, etag: res.headers.etag };
   } catch (error) {
     handleError(error);
   }
