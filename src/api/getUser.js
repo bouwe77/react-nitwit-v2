@@ -2,6 +2,10 @@ import axios from "axios";
 import { handleError, getHeaders } from "./common";
 import * as jwt from "../auth/jwt";
 
+/**
+ * Requests the "whoami" resource along with the current JWT token.
+ * Returns the user to which the token belongs.
+ */
 export async function getCurrentLoggedInUser() {
   const token = jwt.get();
 

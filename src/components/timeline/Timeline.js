@@ -9,6 +9,7 @@ import { useAuth } from "../../auth/AuthProvider";
 function Timeline() {
   const [posts, addPost] = usePosts(getTimelineFromApi);
   const { user } = useAuth();
+  console.log("timeline user", user);
 
   async function getTimelineFromApi(etag) {
     return await getTimelineWithEtag(user.username, etag);

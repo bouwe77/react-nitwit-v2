@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import * as auth from "./authHandler";
 import { getCurrentLoggedInUser } from "../api/getUser";
 
@@ -12,28 +12,37 @@ const AuthContext = createContext();
  * It provides means of holding data of the logged in user and functions for logging in or out.
  */
 function AuthProvider(props) {
-  const [user, setUser] = useState(() => getUser("useState"));
+  const [user, setUser] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  console.log("token:", auth.getToken());
+  //console.log("token:", auth.getToken());
 
-  async function getUser(x) {
+  useEffect(() => {
+    // You can not have an async useEffect.
+    // To work around this, I created an async wrapper function inside the useEffect
+    // and call that as if it were a non-async function.
+    async function asyncWrapperForUseEffect() {
+      await initUserState();
+    }
+    asyncWrapperForUseEffect();
+  }, []);
+
+  async function initUserState(x) {
     try {
       const user = await getCurrentLoggedInUser();
-      return user;
+      setUser(user);
+      setIsLoggedIn(user != null);
     } catch (e) {
-      return null;
+      setUser(null);
+      setIsLoggedIn(false);
     }
   }
 
   async function login(username, password) {
     try {
       await auth.login(username, password);
-      const user = getUser("login");
-      setUser(user);
-      setIsLoggedIn(user != null);
+      initUserState("login");
     } catch (error) {
-      setIsLoggedIn(false);
       console.log("error:", error);
       throw error;
     }
