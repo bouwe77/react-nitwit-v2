@@ -2,7 +2,7 @@ import { authenticate } from "../api/authenticate";
 import * as jwt from "./jwt";
 
 /**
- * Authenticates agains the API with the given credentials.
+ * Authenticates against the API with the given credentials.
  * If successful, a JWT token is stored in the browser's local storage.
  */
 async function login(username, password) {
