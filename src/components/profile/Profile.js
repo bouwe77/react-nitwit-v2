@@ -22,11 +22,7 @@ function Profile({ profileUsername }) {
     <>
       {isLoggedIn && user.username === profileUsername && <Compose addPost={addPost2} />}
 
-      {posts.length === 0 ? (
-        `${profileUsername} has no posts yet... :(`
-      ) : (
-        <Posts posts={posts} />
-      )}
+      <Posts posts={posts} />
     </>
   );
 }

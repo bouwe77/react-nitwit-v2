@@ -15,16 +15,20 @@ function AuthProvider(props) {
   const [user, setUser] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  //console.log("token:", auth.getToken());
-
   useEffect(() => {
+    let didCancel = false;
+
     // You can not have an async useEffect.
     // To work around this, I created an async wrapper function inside the useEffect
     // and call that as if it were a non-async function.
     async function asyncWrapperForUseEffect() {
       await initUserState();
     }
-    asyncWrapperForUseEffect();
+    if (!didCancel) asyncWrapperForUseEffect();
+
+    return () => {
+      didCancel = true;
+    };
   }, []);
 
   async function initUserState(x) {
@@ -53,8 +57,6 @@ function AuthProvider(props) {
     setIsLoggedIn(false);
     auth.logout();
   }
-
-  //console.log("isLoggedIn:", isLoggedIn);
 
   return <AuthContext.Provider value={{ user, login, logout, isLoggedIn }} {...props} />;
 }

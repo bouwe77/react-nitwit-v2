@@ -1,11 +1,17 @@
 import React from "react";
 
 import styles from "./Header.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useAuth } from "../../auth/AuthProvider";
 
 export default () => {
   const { logout, user } = useAuth();
+  let history = useHistory();
+
+  function handleLogout() {
+    logout();
+    history.push("/");
+  }
 
   return (
     <div className={styles.header}>
@@ -36,7 +42,7 @@ export default () => {
             </NavLink>
           </li>
           <li>
-            <a href="#" onClick={logout}>
+            <a href="#" onClick={handleLogout}>
               logout
             </a>
           </li>
