@@ -4,7 +4,7 @@ import * as jwt from "../auth/jwt";
 
 /**
  * Requests the "whoami" resource along with the current JWT token.
- * Returns the user to which the token belongs.
+ * If the token is valid, the API returns the user to which the token belongs.
  */
 export async function getCurrentLoggedInUser() {
   const token = jwt.get();
