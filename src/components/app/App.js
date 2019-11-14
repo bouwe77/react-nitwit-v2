@@ -7,7 +7,9 @@ function App() {
   const { isLoggedIn } = useAuth();
 
   return (
-    <div className="app">{isLoggedIn ? <AuthenticatedApp /> : <UnauthenticatedApp />}</div>
+    <div className="app">
+      {isLoggedIn ? isLoggedIn === true ? <AuthenticatedApp /> : <UnauthenticatedApp /> : null}
+    </div>
   );
 }
 
