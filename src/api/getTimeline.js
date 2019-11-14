@@ -2,6 +2,9 @@ import axios from "axios";
 import { getWithEtag, handleError, getHeaders } from "./common";
 import * as jwt from "../auth/jwt";
 
+/**
+ * Requests the API to get the timeline for the given username and etag version number.
+ */
 export async function getTimelineWithEtag(username, etag) {
   const token = jwt.get();
 
@@ -15,6 +18,9 @@ export async function getTimelineWithEtag(username, etag) {
   }
 }
 
+/**
+ * Requests the API to get the timeline for the given username.
+ */
 export async function getTimeline(username) {
   const url = `${process.env.REACT_APP_API_URL}/users/${username}/timeline`;
 

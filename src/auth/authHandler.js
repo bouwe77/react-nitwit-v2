@@ -7,8 +7,8 @@ import * as jwt from "./jwt";
  */
 async function login(username, password) {
   try {
-    const result = await authenticate(username, password);
-    jwt.save(result.data);
+    const token = await authenticate(username, password);
+    jwt.save(token);
   } catch (error) {
     jwt.remove();
     throw error;

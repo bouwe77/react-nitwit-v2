@@ -1,6 +1,9 @@
 import axios from "axios";
 import { getWithEtag, handleError } from "./common";
 
+/**
+ * Requests the API to get the given username's posts with the given etag version number.
+ */
 export async function getPostsWithEtag(username, etag) {
   const url = `${process.env.REACT_APP_API_URL}/users/${username}/posts`;
   try {
@@ -10,6 +13,9 @@ export async function getPostsWithEtag(username, etag) {
   }
 }
 
+/**
+ * Requests the API to get the given username's posts.
+ */
 export async function getPosts(username) {
   const url = `${process.env.REACT_APP_API_URL}/users/${username}/posts`;
   try {

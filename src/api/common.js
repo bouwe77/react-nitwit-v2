@@ -26,6 +26,10 @@ export async function getWithEtag(url, etag, token = null) {
   }
 }
 
+/**
+ * Returns HTTP headers consisting of the current etag token stored on
+ * local browser storage and the the etag, if provided.
+ */
 export function getHeaders(token, etag = null) {
   if (!token) token = jwt.get();
 
@@ -38,6 +42,9 @@ export function getHeaders(token, etag = null) {
   return headers;
 }
 
+/**
+ * Handles the error by logging to the console and rethrowing it again.
+ */
 export function handleError(error) {
   console.log(
     error.response.status,
